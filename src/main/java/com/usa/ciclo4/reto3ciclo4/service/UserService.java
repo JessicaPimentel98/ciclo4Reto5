@@ -8,40 +8,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Class User Service
- */
 @Service
 
 public class UserService {
-    /**
-     *
-     */
+
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * Get = List of All Users
-     * @return
-     */
     public List<User> getAll() {
         return userRepository.getAll();
     }
 
-    /**
-     * Get = User by its id
-     * @param id
-     * @return
-     */
     public Optional<User> getUser(int id) {
         return userRepository.getUser(id);
     }
 
-    /**
-     * This method saves a new user
-     * @param user
-     * @return
-     */
     public User save(User user) {
         if (user.getId() == null) {
             return user;
@@ -59,11 +40,6 @@ public class UserService {
         }
     }
 
-    /**
-     * This method updates a user
-     * @param user
-     * @return
-     */
     public User update(User user) {
         if (user.getId() != null) {
             Optional<User> dbUser = userRepository.getUser(user.getId());
@@ -109,20 +85,11 @@ public class UserService {
         return user;
     }
 
-    /**
-     * This method checks if an email exists
-     * @param email
-     * @return
-     */
     public boolean emailExists(String email) {
         return userRepository.emailExists(email);
     }
 
-    /**
-     * This method deletes a User
-     * @param userId
-     * @return
-     */
+
     public boolean delete(int userId) {
         Boolean userBoolean = getUser(userId).map(user -> {
             userRepository.delete(user);
@@ -131,12 +98,7 @@ public class UserService {
         return userBoolean;
     }
 
-    /**
-     * This method verifies if a user is registered by its email and password
-     * @param email
-     * @param password
-     * @return
-     */
+
     public User authenticateUser(String email, String password){
         Optional<User> user = userRepository.authenticateUser(email, password);
         if (user.isEmpty()){
